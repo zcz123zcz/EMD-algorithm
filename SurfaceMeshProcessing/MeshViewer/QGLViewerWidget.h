@@ -33,7 +33,7 @@ public:
 	float radius() const { return Radius; }
 	const OpenMesh::Vec3d& center() const { return Center; }
 
-	const GLdouble* modelview_matrix() const  { return &ll[0]; }
+	const GLdouble* modelview_matrix() const  { return &ModelViewMatrix[0]; }
 	void reset_modelview_matrix()
 	{
 		makeCurrent();

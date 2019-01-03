@@ -221,6 +221,12 @@ public:
 
 #pragma endregion
 
+#pragma region User_specified
+	void shape_preserve_parametrization()
+	{
+		MeshViewer->shape_preserve_parameterization();
+	}
+
 };
 
 

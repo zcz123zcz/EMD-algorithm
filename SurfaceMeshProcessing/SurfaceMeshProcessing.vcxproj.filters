@@ -34,6 +34,9 @@
     <Filter Include="ANN">
       <UniqueIdentifier>{4310ce49-8f2e-47ef-9398-f7a7433d4054}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WorkSpace">
+      <UniqueIdentifier>{90cc422a-7760-4e3e-b881-b24eb7ff7afd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\Debug\moc_surfacemeshprocessing.cpp">
@@ -150,6 +153,9 @@
     <ClCompile Include="Include\ANN\perf.cpp">
       <Filter>ANN</Filter>
     </ClCompile>
+    <ClCompile Include="WorkSpace\Parameterization.cpp">
+      <Filter>WorkSpace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="surfacemeshprocessing.qrc">
@@ -219,6 +225,9 @@
     </ClInclude>
     <ClInclude Include="Include\ANN\pr_queue_k.h">
       <Filter>ANN</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkSpace\Parameterization.h">
+      <Filter>WorkSpace</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

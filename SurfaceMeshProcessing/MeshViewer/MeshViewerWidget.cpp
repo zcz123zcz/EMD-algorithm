@@ -457,19 +457,31 @@ void MeshViewerWidget::draw_scene(int drawmode)
 
 	if(draw_mesh_boundary_ok)
 	{
-		glLineWidth(2.0);
+// 		glLineWidth(2.0);
+// 		glColor3f(1.0, 0.5, 0.0);
+// 		glBegin(GL_LINES);
+// 		for(Mesh::EdgeIter e_it = mesh.edges_begin(); e_it != mesh.edges_end(); ++e_it)
+// 		{
+// 			if( mesh.is_boundary(e_it ) )
+// 			{
+// 				Mesh::HalfedgeHandle heh0 = mesh.halfedge_handle(e_it, 0);
+// 				glVertex3dv( mesh.point(mesh.to_vertex_handle(heh0)).data() );
+// 				glVertex3dv( mesh.point(mesh.from_vertex_handle(heh0)).data() );
+// 			}
+// 		}
+// 		glEnd();
+
+		std::tr1::shared_ptr<ShapePreserveParameter> sInv(new ShapePreserveParameter(mesh));
+		std::vector<Mesh::VertexHandle> boundary_vertex = (sInv.get())->getBoundaryVertex();
+		glPointSize(10.0);
 		glColor3f(1.0, 0.5, 0.0);
-		glBegin(GL_LINES);
-		for(Mesh::EdgeIter e_it = mesh.edges_begin(); e_it != mesh.edges_end(); ++e_it)
+		glBegin(GL_POINTS);
+		for (std::vector<Mesh::VertexHandle>::iterator iter = boundary_vertex.begin(); iter != boundary_vertex.end();iter++)
 		{
-			if( mesh.is_boundary(e_it ) )
-			{
-				Mesh::HalfedgeHandle heh0 = mesh.halfedge_handle(e_it, 0);
-				glVertex3dv( mesh.point(mesh.to_vertex_handle(heh0)).data() );
-				glVertex3dv( mesh.point(mesh.from_vertex_handle(heh0)).data() );
-			}
+			glVertex3dv(mesh.point(*iter).data());
 		}
 		glEnd();
+
 
 		/*FILE* f_bde = fopen("bde.de", "w");
 		for (Mesh::VertexIter v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); ++v_it)

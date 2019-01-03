@@ -4,9 +4,11 @@
 #include <QString>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <memory>
 
 #include "QGLViewerWidget.h"
 #include "MeshDefinition.h"
+#include "WorkSpace/Parameterization.h"
 
 class MeshViewerWidget : public QGLViewerWidget 
 {
@@ -91,6 +93,8 @@ private:
 	int mesh_mode_;
 	//std::vector<unsigned int> Indices;
 	//std::vector<unsigned int> VIndices;
+
+
 };
 
 #endif // MESHPROCESSING_MESHVIEWERWIDGET_H

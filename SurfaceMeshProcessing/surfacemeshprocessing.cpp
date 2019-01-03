@@ -244,6 +244,11 @@ void SurfaceMeshProcessing::createActions()
 	split_vertex_valence_eight = new QAction("Split Vertex(Eight)", this);
 	split_vertex_valence_eight->setStatusTip("Find Vertex");
 	connect(split_vertex_valence_eight, SIGNAL(triggered()), this, SLOT(aux_split_vertex_valence_eight()));
+
+
+	//User specified
+	parameterization = new QAction("Parameter", this);
+	connect(parameterization, SIGNAL(triggered()), this, SLOT(shape_preserve_parameterization()));
 }
 
 void SurfaceMeshProcessing::createMenus()
@@ -330,6 +335,10 @@ void SurfaceMeshProcessing::createToolBars()
 	localOperationBar->addAction(EdgeCollpaseAction);
 	localOperationBar->addAction(EdgeSplitAction);
 	localOperationBar->addAction(EdgeFlipAction);
+
+	/*User specified*/
+	algorithms = addToolBar(tr("Algorithms"));
+	algorithms->addAction(parameterization);
 }
 
 void SurfaceMeshProcessing::createStatusBar()
@@ -658,5 +667,12 @@ void SurfaceMeshProcessing::aux_delete_vertex_valence_three()
 void SurfaceMeshProcessing::aux_split_vertex_valence_eight()
 {
 	viewer->aux_split_vertex_valence_eight();
+}
+
+/*User specified*/
+
+void SurfaceMeshProcessing::shape_preserve_parameterization()
+{
+	viewer->shape_preserve_parametrization();
 }
 

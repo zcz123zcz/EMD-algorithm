@@ -141,6 +141,11 @@ private:
 	//label
 	QLabel* statusLabel;
 
+	//User specified
+	QToolBar* algorithms;
+
+	QAction* parameterization;
+
 private:
 	void setAllMouseActionChecked(bool b);
 	void setAllViewActionChecked(bool b);
@@ -149,6 +154,12 @@ private:
 	MainViewerWidget* viewer;
 	int latestDrawMode;
 
+
+	/*User specified*/
+private slots:
+	void shape_preserve_parameterization();
+
+	/*****end*******/
 };
 
 #endif // SURFACEMESHPROCESSING_H

@@ -607,3 +607,12 @@ void InteractiveViewerWidget::render_text_slot(OpenMesh::Vec3d pos, QString str)
 	render_text(x,y,str);*/
 	render_text(pos[0],pos[1],pos[2],str);
 }
+
+/*User specified*/
+
+void InteractiveViewerWidget::shape_preserve_parameterization()
+{
+	std::tr1::shared_ptr<ShapePreserveParameter> sInv(new ShapePreserveParameter(mesh));
+	mesh=(sInv.get())->get_output_mesh();
+
+}

@@ -151,6 +151,12 @@ public:
 	void split_vertex_valence_eight();
 #pragma endregion
 
+#pragma region User_specified
+	public:
+		void shape_preserve_parameterization();
+
+#pragma endregion
+
 
 };
 
