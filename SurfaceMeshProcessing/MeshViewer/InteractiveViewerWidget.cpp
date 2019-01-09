@@ -614,5 +614,5 @@ void InteractiveViewerWidget::shape_preserve_parameterization()
 {
 	std::tr1::shared_ptr<ShapePreserveParameter> sInv(new ShapePreserveParameter(mesh));
 	mesh=(sInv.get())->get_output_mesh();
-
+	//(sInv.get())->parametrization();
 }

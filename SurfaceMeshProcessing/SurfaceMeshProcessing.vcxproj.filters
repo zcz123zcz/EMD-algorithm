@@ -156,6 +156,12 @@
     <ClCompile Include="WorkSpace\Parameterization.cpp">
       <Filter>WorkSpace</Filter>
     </ClCompile>
+    <ClCompile Include="BasisFuns.cpp">
+      <Filter>WorkSpace</Filter>
+    </ClCompile>
+    <ClCompile Include="BsplineSurface.cpp">
+      <Filter>WorkSpace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="surfacemeshprocessing.qrc">
@@ -227,6 +233,12 @@
       <Filter>ANN</Filter>
     </ClInclude>
     <ClInclude Include="WorkSpace\Parameterization.h">
+      <Filter>WorkSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="BasisFuns.h">
+      <Filter>WorkSpace</Filter>
+    </ClInclude>
+    <ClInclude Include="BsplineSurface.h">
       <Filter>WorkSpace</Filter>
     </ClInclude>
   </ItemGroup>
