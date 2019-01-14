@@ -145,8 +145,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BasisFuns.cpp" />
-    <ClCompile Include="BsplineSurface.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_Aux_Transform_Mesh_Dialog.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -236,6 +234,8 @@
     <ClCompile Include="MeshViewer\MeshViewerWidget.cpp" />
     <ClCompile Include="MeshViewer\QGLViewerWidget.cpp" />
     <ClCompile Include="surfacemeshprocessing.cpp" />
+    <ClCompile Include="WorkSpace\BasisFuns.cpp" />
+    <ClCompile Include="WorkSpace\BsplineSurface.cpp" />
     <ClCompile Include="WorkSpace\Parameterization.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -259,8 +259,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasisFuns.h" />
-    <ClInclude Include="BsplineSurface.h" />
     <ClInclude Include="Include\ANN\ANN.h" />
     <ClInclude Include="Include\ANN\ANNperf.h" />
     <ClInclude Include="Include\ANN\ANNx.h" />
@@ -275,6 +273,8 @@
     <ClInclude Include="Include\ANN\pr_queue_k.h" />
     <ClInclude Include="MeshViewer\MeshDefinition.h" />
     <ClInclude Include="MeshViewer\OpenglHeaders.h" />
+    <ClInclude Include="WorkSpace\BasisFuns.h" />
+    <ClInclude Include="WorkSpace\BsplineSurface.h" />
     <ClInclude Include="WorkSpace\Parameterization.h" />
     <CustomBuild Include="MeshViewer\QGLViewerWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

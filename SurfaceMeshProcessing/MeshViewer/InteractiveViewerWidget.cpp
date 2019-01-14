@@ -616,3 +616,9 @@ void InteractiveViewerWidget::shape_preserve_parameterization()
 	mesh=(sInv.get())->get_output_mesh();
 	//(sInv.get())->parametrization();
 }
+
+void InteractiveViewerWidget::surface_approximation()
+{
+	std::tr1::shared_ptr<BsplineSurface> bInv(new BsplineSurface(mesh, 1.0, 4, 50, 4, 50));
+	mesh=(bInv.get())->get_output_mesh();
+}

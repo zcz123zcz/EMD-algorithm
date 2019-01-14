@@ -154,7 +154,7 @@ public:
 #pragma region User_specified
 	public:
 		void shape_preserve_parameterization();
-
+		void surface_approximation();
 #pragma endregion
 
 

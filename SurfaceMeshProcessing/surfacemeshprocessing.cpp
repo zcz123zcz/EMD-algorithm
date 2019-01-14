@@ -249,6 +249,9 @@ void SurfaceMeshProcessing::createActions()
 	//User specified
 	parameterization = new QAction("Parameter", this);
 	connect(parameterization, SIGNAL(triggered()), this, SLOT(shape_preserve_parameterization()));
+
+	Approximation = new QAction("Approximation", this);
+	connect(Approximation, SIGNAL(triggered()), this, SLOT(surface_approximation()));
 }
 
 void SurfaceMeshProcessing::createMenus()
@@ -339,6 +342,7 @@ void SurfaceMeshProcessing::createToolBars()
 	/*User specified*/
 	algorithms = addToolBar(tr("Algorithms"));
 	algorithms->addAction(parameterization);
+	algorithms->addAction(Approximation);
 }
 
 void SurfaceMeshProcessing::createStatusBar()
@@ -674,5 +678,10 @@ void SurfaceMeshProcessing::aux_split_vertex_valence_eight()
 void SurfaceMeshProcessing::shape_preserve_parameterization()
 {
 	viewer->shape_preserve_parametrization();
+}
+
+void SurfaceMeshProcessing::surface_approximation()
+{
+	viewer->surface_approximation();
 }
 

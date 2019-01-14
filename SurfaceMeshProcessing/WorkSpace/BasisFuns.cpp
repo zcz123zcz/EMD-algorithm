@@ -2,7 +2,7 @@
 
 BasisFuns::BasisFuns(std::vector<float> U_, std::vector<float> V_, int k_u_, int k_v_) :U(U_), V(V_), k_u(k_u_), k_v(k_v_)
 {
-
+	remove_repeat_knot();
 }
 
 float BasisFuns::basis(std::vector<float> knot, int i, float t, int p)
@@ -24,9 +24,27 @@ float BasisFuns::basis(std::vector<float> knot, int i, float t, int p)
 	}
 }
 
-int BasisFuns::findSpan(std::vector<float> knot, float t)
+void BasisFuns::remove_repeat_knot()
+{
+	int n = U.size();
+	U_t.clear();
+	for (int i = k_u; i < n - k_u; i++)
+	{
+		U_t.push_back(U[i]);
+	}
+
+	n = V.size();
+	V_t.clear();
+	for (int i = k_v; i < n - k_v; i++)
+	{
+		V_t.push_back(V[i]);
+	}
+}
+
+int BasisFuns::findSpan(std::vector<float> knot, float t, int k)//需要将节点内重复的先去除
 {
 	int n = knot.size();
+
 	int low = 0;
 	int high = n - 1;
 	int mid = (low + high) / 2;
@@ -52,10 +70,39 @@ int BasisFuns::findSpan(std::vector<float> knot, float t)
 
 float BasisFuns::basis_U(int i, float t)
 {
-	return basis(U, i, t, k_u);
+	if (i==U_t.size()+k_u-2&&abs(t-1.0)<=1e-8)
+	{
+		return 1.0f;
+	}
+	else
+	{
+		return basis(U, i, t, k_u);
+	}
 }
 
 float BasisFuns::basis_V(int i, float t)
 {
-	return basis(V, i, t, k_v);
+	if (i == V_t.size()+k_v-2 && abs(t - 1.0) <= 1e-8)
+	{
+		return 1.0f;
+	}
+	else
+	{
+		return basis(V, i, t, k_v);
+	}
+}
+
+float BasisFuns::basis_u_v(int r, int c, float u, float v)
+{
+	return basis_U(r, u)*basis_V(c, v);
+}
+
+int BasisFuns::findSpan_U(float t)
+{
+	return findSpan(U_t, t,k_u);
+}
+
+int BasisFuns::findSpan_V(float t)
+{
+	return findSpan(V_t, t,k_v);
 }

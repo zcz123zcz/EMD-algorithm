@@ -156,10 +156,10 @@
     <ClCompile Include="WorkSpace\Parameterization.cpp">
       <Filter>WorkSpace</Filter>
     </ClCompile>
-    <ClCompile Include="BasisFuns.cpp">
+    <ClCompile Include="WorkSpace\BasisFuns.cpp">
       <Filter>WorkSpace</Filter>
     </ClCompile>
-    <ClCompile Include="BsplineSurface.cpp">
+    <ClCompile Include="WorkSpace\BsplineSurface.cpp">
       <Filter>WorkSpace</Filter>
     </ClCompile>
   </ItemGroup>
@@ -235,10 +235,10 @@
     <ClInclude Include="WorkSpace\Parameterization.h">
       <Filter>WorkSpace</Filter>
     </ClInclude>
-    <ClInclude Include="BasisFuns.h">
+    <ClInclude Include="WorkSpace\BasisFuns.h">
       <Filter>WorkSpace</Filter>
     </ClInclude>
-    <ClInclude Include="BsplineSurface.h">
+    <ClInclude Include="WorkSpace\BsplineSurface.h">
       <Filter>WorkSpace</Filter>
     </ClInclude>
   </ItemGroup>

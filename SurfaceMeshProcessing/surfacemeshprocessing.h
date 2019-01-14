@@ -145,6 +145,7 @@ private:
 	QToolBar* algorithms;
 
 	QAction* parameterization;
+	QAction* Approximation;
 
 private:
 	void setAllMouseActionChecked(bool b);
@@ -158,7 +159,7 @@ private:
 	/*User specified*/
 private slots:
 	void shape_preserve_parameterization();
-
+	void surface_approximation();
 	/*****end*******/
 };
 

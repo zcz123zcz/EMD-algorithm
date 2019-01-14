@@ -8,7 +8,7 @@
 
 #include "QGLViewerWidget.h"
 #include "MeshDefinition.h"
-#include "WorkSpace/Parameterization.h"
+#include "WorkSpace/BsplineSurface.h"
 
 class MeshViewerWidget : public QGLViewerWidget 
 {

@@ -227,6 +227,11 @@ public:
 		MeshViewer->shape_preserve_parameterization();
 	}
 
+	void surface_approximation()
+	{
+		MeshViewer->surface_approximation();
+	}
+
 };
 
 

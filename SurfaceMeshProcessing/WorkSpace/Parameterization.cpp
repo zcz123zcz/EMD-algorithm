@@ -332,9 +332,8 @@ void ShapePreserveParameter::construct_equation(SparseMatrix<float> &L, MatrixXf
 	std::vector<float> lamda_array;
 	for (int i = 0; i < size;i++)
 	{
-		//get_lamda_of_vertex(interior_vertex_handle[i], lamda_array);
-		get_lamda_of_vertex_average(interior_vertex_handle[i], lamda_array);
-		std::cout << std::endl;
+		get_lamda_of_vertex(interior_vertex_handle[i], lamda_array);
+		//get_lamda_of_vertex_average(interior_vertex_handle[i], lamda_array);
 		row.push_back(i);
 		col.push_back(i);
 		value.push_back(1.0);
@@ -385,9 +384,10 @@ void ShapePreserveParameter::solve_and_reset_mesh()
 	{
 		std::cout << "分解失败" << std::endl;
 	}
-	std::cout << "矩阵分解完成" << std::endl;
+	std::cout << "参数化矩阵分解完成" << std::endl;
 	MatrixXf x = solver.solve(b_x);
 	MatrixXf y = solver.solve(b_y);
+	std::cout << "参数化求解完成" << std::endl;
 	for (int i = 0; i < interior_vertex_handle.size();i++)
 	{
 		Mesh::Point new_point(x(i, 0), y(i, 0), 0.0);
