@@ -252,6 +252,9 @@ void SurfaceMeshProcessing::createActions()
 
 	Approximation = new QAction("Approximation", this);
 	connect(Approximation, SIGNAL(triggered()), this, SLOT(surface_approximation()));
+
+	ParaZoom = new QAction("ParaZoom", this);
+	connect(ParaZoom, SIGNAL(triggered()), this, SLOT(zoom_para()));
 }
 
 void SurfaceMeshProcessing::createMenus()
@@ -343,6 +346,7 @@ void SurfaceMeshProcessing::createToolBars()
 	algorithms = addToolBar(tr("Algorithms"));
 	algorithms->addAction(parameterization);
 	algorithms->addAction(Approximation);
+	algorithms->addAction(ParaZoom);
 }
 
 void SurfaceMeshProcessing::createStatusBar()
@@ -685,3 +689,7 @@ void SurfaceMeshProcessing::surface_approximation()
 	viewer->surface_approximation();
 }
 
+void SurfaceMeshProcessing::zoom_para()
+{
+	viewer->zoom_para();
+}

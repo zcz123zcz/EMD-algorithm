@@ -3,6 +3,7 @@
 
 #include "MeshViewerWidget.h"
 #include "ANN\ANN.h"
+#include <OpenMesh/Core/IO/MeshIO.hh>
 
 class InteractiveViewerWidget : public MeshViewerWidget
 {
@@ -155,6 +156,8 @@ public:
 	public:
 		void shape_preserve_parameterization();
 		void surface_approximation();
+		void parameter_zoom();//将输入的参数网格缩放到0-1区间
+
 #pragma endregion
 
 

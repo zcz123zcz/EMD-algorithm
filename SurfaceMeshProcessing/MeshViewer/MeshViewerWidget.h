@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <memory>
+#include <string>
 
 #include "QGLViewerWidget.h"
 #include "MeshDefinition.h"
@@ -80,6 +81,9 @@ protected:
 	bool draw_mesh_boundary_ok;
 	std::vector<Mesh> mesh_vector;
 	int mesh_vector_index;
+
+	/*User specified*/
+	Mesh parameter;//mesh对应的参数
 
 private:
 	void updateIndices();

@@ -293,6 +293,8 @@ void InteractiveViewerWidget::dropEvent(QDropEvent* event)
 			emit(loadMeshOK(false,"No Mesh"));
 		}
 	}
+
+
 }
 
 void InteractiveViewerWidget::pick_vertex(int x,int y)
@@ -617,8 +619,29 @@ void InteractiveViewerWidget::shape_preserve_parameterization()
 	//(sInv.get())->parametrization();
 }
 
-void InteractiveViewerWidget::surface_approximation()
+void InteractiveViewerWidget::parameter_zoom()
 {
-	std::tr1::shared_ptr<BsplineSurface> bInv(new BsplineSurface(mesh, 1.0, 4, 50, 4, 50));
-	mesh=(bInv.get())->get_output_mesh();
+	float min_x=1e10, max_x=-1e10, min_y=1e10, max_y=-1e10;
+	for (Mesh::VertexIter v_it = mesh.vertices_begin(); v_it != mesh.vertices_end();v_it++)
+	{
+		min_x = min_x > mesh.point(*v_it).data()[0] ? mesh.point(*v_it).data()[0] : min_x;
+		min_y = min_y > mesh.point(*v_it).data()[1] ? mesh.point(*v_it).data()[1] : min_y;
+		max_x = max_x < mesh.point(*v_it).data()[0] ? mesh.point(*v_it).data()[0] : max_x;
+		max_y = max_y <mesh.point(*v_it).data()[1] ? mesh.point(*v_it).data()[1] : max_y;
+	}
+	float epsilon = 1e-9;
+	for (Mesh::VertexIter v_it = mesh.vertices_begin(); v_it != mesh.vertices_end(); v_it++)
+	{
+		Mesh::Point ori_point = mesh.point(*v_it);
+		Mesh::Point new_point((ori_point.data()[0] - min_x) / (max_x - min_x + epsilon), (ori_point.data()[1] - min_y) / (max_y - min_y + epsilon), 0.0f);
+		mesh.set_point(*v_it, new_point);
+		//std::cout << mesh.point(*v_it) << std::endl;
+	}
+}
+
+void InteractiveViewerWidget::surface_approximation()
+{      
+	 std::tr1::shared_ptr<BsplineSurface> bInv(new BsplineSurface(mesh,parameter, 0.1, 3, 600, 3, 600));
+	 mesh=(bInv.get())->get_output_mesh();
+
 }

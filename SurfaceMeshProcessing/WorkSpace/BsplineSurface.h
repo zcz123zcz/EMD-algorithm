@@ -10,7 +10,7 @@
 class BsplineSurface
 {
 public:
-	BsplineSurface(Mesh input_mesh_,int alpha_,int k_u_,int num_u_,int k_v_,int num_v_);
+	BsplineSurface(Mesh input_mesh_,Mesh parameter_,int alpha_,int k_u_,int num_u_,int k_v_,int num_v_);
 	~BsplineSurface();
 
 public:

@@ -332,8 +332,8 @@ void ShapePreserveParameter::construct_equation(SparseMatrix<float> &L, MatrixXf
 	std::vector<float> lamda_array;
 	for (int i = 0; i < size;i++)
 	{
-		get_lamda_of_vertex(interior_vertex_handle[i], lamda_array);
-		//get_lamda_of_vertex_average(interior_vertex_handle[i], lamda_array);
+		//get_lamda_of_vertex(interior_vertex_handle[i], lamda_array);
+		get_lamda_of_vertex_average(interior_vertex_handle[i], lamda_array);
 		row.push_back(i);
 		col.push_back(i);
 		value.push_back(1.0);

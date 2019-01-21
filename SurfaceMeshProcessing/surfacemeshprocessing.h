@@ -146,6 +146,7 @@ private:
 
 	QAction* parameterization;
 	QAction* Approximation;
+	QAction* ParaZoom;
 
 private:
 	void setAllMouseActionChecked(bool b);
@@ -160,6 +161,7 @@ private:
 private slots:
 	void shape_preserve_parameterization();
 	void surface_approximation();
+	void zoom_para();//放缩参数至0-1
 	/*****end*******/
 };
 

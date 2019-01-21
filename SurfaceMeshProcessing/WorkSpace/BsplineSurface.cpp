@@ -1,8 +1,8 @@
 
 #include "BsplineSurface.h"
 
-BsplineSurface::BsplineSurface(Mesh input_mesh_, int alpha_, int k_u_, int num_u_, int k_v_, int num_v_) 
-	:input_mesh(input_mesh_), alpha(alpha_), k_u(k_u_), k_v(k_v_), num_u(num_u_), num_v(num_v_)
+BsplineSurface::BsplineSurface(Mesh input_mesh_,Mesh parameter_,int alpha_, int k_u_, int num_u_, int k_v_, int num_v_) 
+	:input_mesh(input_mesh_),parameter(parameter_), alpha(alpha_), k_u(k_u_), k_v(k_v_), num_u(num_u_), num_v(num_v_)
 {
 
 }
@@ -100,7 +100,7 @@ void BsplineSurface::construct_smoth_matrix()
 }
 void BsplineSurface::construct_cofficient_matrix()
 {
-	get_parameter();//先得到参数
+	//get_parameter();//先得到参数
 	get_all_knot();//计算节点
 	std::tr1::shared_ptr<BasisFuns> sInv(new BasisFuns(U,V,k_u,k_v));
 	int M = (num_u + 1)*(num_v + 1);
@@ -110,6 +110,7 @@ void BsplineSurface::construct_cofficient_matrix()
 	std::vector<int> row;std::vector<int> col;std::vector<float> value;
 	clock_t startTime, endTime;
 	startTime = clock();//计时开始
+	std::cout << "开始组装矩阵" << std::endl;
 	for (Mesh::VertexIter v_it = input_mesh.vertices_begin(); v_it != input_mesh.vertices_end();v_it++)
 	{
 		P((*v_it).idx(), 0) = input_mesh.point(*v_it).data()[0], P((*v_it).idx(), 1) = input_mesh.point(*v_it).data()[1], P((*v_it).idx(), 2) = input_mesh.point(*v_it).data()[2];
@@ -142,6 +143,11 @@ void BsplineSurface::construct_cofficient_matrix()
 	BaseMatrix.setFromTriplets(triplets.begin(), triplets.end());
 	K_d = BaseMatrix.transpose()*BaseMatrix;
 	b = BaseMatrix.transpose()*P;
+	SparseMatrix<float> K_epsion = SparseMatrix<float>(M, M);
+	K_epsion.setIdentity();
+	float epsion = 1e-7;
+	K_epsion = epsion*K_epsion;
+	K_d += K_epsion;
 }
 
 void BsplineSurface::get_control_point()
@@ -149,6 +155,7 @@ void BsplineSurface::get_control_point()
 	construct_smoth_matrix();
 	construct_cofficient_matrix();
  	SparseMatrix<float> K_com = K_d+alpha*K_s;
+
 	std::cout << K_com.rows() << "   " << K_com.cols() << std::endl;
 	//SparseLU<SparseMatrix<float>> solver;
 	//SparseQR<SparseMatrix<float>,AMDOrdering<int>> solver;
@@ -182,25 +189,6 @@ void BsplineSurface::remesh()
 	MatrixXf new_Point = BaseMatrix*X;
 	for (Mesh::VertexIter v_it = input_mesh.vertices_begin(); v_it != input_mesh.vertices_end(); v_it++)
 	{
-// 		Mesh::Point point = parameter.point(*v_it);
-// 		int id_u = (sInv.get())->findSpan_U(point.data()[0]);
-// 		int id_v = (sInv.get())->findSpan_V(point.data()[1]);
-// 		/*确定基函数不为0的区间*/
-// 		int left_v = id_v - k_v >= 0 ? id_v - k_v : 0;
-// 		int right_v = id_v + k_v <= num_v ? id_v + k_v : num_v;
-// 		int low_u = id_u - k_u >= 0 ? id_u - k_u : 0;
-// 		int up_u = id_u + k_u <= num_u ? id_u + k_u : num_u;
-// 		Mesh::Point new_point(0.0, 0.0, 0.0);
-// 		for (int i = low_u; i <= up_u; i++)
-// 		{
-// 			for (int j = left_v; j <= right_v; j++)
-// 			{
-// 				float temp_value = (sInv.get())->basis_u_v(i, j, point.data()[0], point.data()[1]);
-// 				int temp_basis_id = i*(num_v + 1) + j;
-// 				Mesh::Point temp_point(X(temp_basis_id, 0), X(temp_basis_id, 1), X(temp_basis_id, 2));
-// 				new_point += temp_value*temp_point;
-// 			}
-// 		}
 		Mesh::Point Point(new_Point((*v_it).idx(), 0), new_Point((*v_it).idx(), 1), new_Point((*v_it).idx(), 2));
 		output_mesh.set_point(*v_it, Point);
 	}

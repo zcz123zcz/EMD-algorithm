@@ -139,6 +139,17 @@ bool MeshViewerWidget::openMesh(const char* filename)
 		fclose(f_de);*/
 		// loading done
 		mesh_vector.push_back(mesh); mesh_vector_index = 0;
+
+		/*Add by ZCZ, read parameter*/
+		std::string filename_string = filename;
+		int size = filename_string.size();
+		filename_string.replace(size - 4,0,"_para");
+		std::cout << filename_string << std::endl;
+		if (OpenMesh::IO::read_mesh(parameter, filename_string))
+		{
+			return true;
+		}
+		std::cout << "没有对应的参数网格！" << std::endl;
 		return true;
 	}
 	return false;
@@ -457,30 +468,30 @@ void MeshViewerWidget::draw_scene(int drawmode)
 
 	if(draw_mesh_boundary_ok)
 	{
-// 		glLineWidth(2.0);
-// 		glColor3f(1.0, 0.5, 0.0);
-// 		glBegin(GL_LINES);
-// 		for(Mesh::EdgeIter e_it = mesh.edges_begin(); e_it != mesh.edges_end(); ++e_it)
-// 		{
-// 			if( mesh.is_boundary(e_it ) )
-// 			{
-// 				Mesh::HalfedgeHandle heh0 = mesh.halfedge_handle(e_it, 0);
-// 				glVertex3dv( mesh.point(mesh.to_vertex_handle(heh0)).data() );
-// 				glVertex3dv( mesh.point(mesh.from_vertex_handle(heh0)).data() );
-// 			}
-// 		}
-// 		glEnd();
-
-		std::tr1::shared_ptr<ShapePreserveParameter> sInv(new ShapePreserveParameter(mesh));
-		std::vector<Mesh::VertexHandle> boundary_vertex = (sInv.get())->getBoundaryVertex();
-		glPointSize(10.0);
+		glLineWidth(2.0);
 		glColor3f(1.0, 0.5, 0.0);
-		glBegin(GL_POINTS);
-		for (std::vector<Mesh::VertexHandle>::iterator iter = boundary_vertex.begin(); iter != boundary_vertex.end();iter++)
+		glBegin(GL_LINES);
+		for(Mesh::EdgeIter e_it = mesh.edges_begin(); e_it != mesh.edges_end(); ++e_it)
 		{
-			glVertex3dv(mesh.point(*iter).data());
+			if( mesh.is_boundary(e_it ) )
+			{
+				Mesh::HalfedgeHandle heh0 = mesh.halfedge_handle(e_it, 0);
+				glVertex3dv( mesh.point(mesh.to_vertex_handle(heh0)).data() );
+				glVertex3dv( mesh.point(mesh.from_vertex_handle(heh0)).data() );
+			}
 		}
 		glEnd();
+
+// 		std::tr1::shared_ptr<ShapePreserveParameter> sInv(new ShapePreserveParameter(mesh));
+// 		std::vector<Mesh::VertexHandle> boundary_vertex = (sInv.get())->getBoundaryVertex();
+// 		glPointSize(10.0);
+// 		glColor3f(1.0, 0.5, 0.0);
+// 		glBegin(GL_POINTS);
+// 		for (std::vector<Mesh::VertexHandle>::iterator iter = boundary_vertex.begin(); iter != boundary_vertex.end();iter++)
+// 		{
+// 			glVertex3dv(mesh.point(*iter).data());
+// 		}
+// 		glEnd();
 
 
 		/*FILE* f_bde = fopen("bde.de", "w");
@@ -825,14 +836,21 @@ void MeshViewerWidget::draw_mesh_solidsmooth() const
 void MeshViewerWidget::draw_mesh_pointset() const 
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_POINTS);
-
-	glColor3f(0.0, 1.0, 1.0);
-	glPointSize(10);
+	glPointSize(2);
 	Mesh::VertexIter v_it = mesh.vertices_begin();
 	glBegin(GL_POINTS);
 	for(v_it;v_it != mesh.vertices_end();++v_it)
 	{
-		glVertex3dv(mesh.point(v_it).data());
+		if ((*v_it).idx()%2==1)
+		{
+			glColor3f(0.0, 1.0, 1.0);
+			glVertex3dv(mesh.point(v_it).data());
+		}
+		else
+		{
+			glColor3f(1.0, 0.0, 1.0);
+			glVertex3dv(mesh.point(v_it).data());
+		}
 	}
 	glEnd();
 	/*glEnableClientState(GL_VERTEX_ARRAY);

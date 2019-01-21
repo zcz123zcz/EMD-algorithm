@@ -232,6 +232,11 @@ public:
 		MeshViewer->surface_approximation();
 	}
 
+	void zoom_para()
+	{
+		MeshViewer->parameter_zoom();
+	}
+
 };
 
 
